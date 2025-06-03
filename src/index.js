@@ -1,10 +1,6 @@
 "use strict";
 
 let currentTemp = 0;
-// let defaultCity = "Seattle";
-// cityNameInput.value = defaultCity;
-// headerCityName.textContent = defaultCity;
-
 
 const increaseTempControl = document.getElementById('increaseTempControl');
 const decreaseTempControl = document.getElementById('decreaseTempControl');
@@ -36,6 +32,8 @@ const updateTemp = () => {
         landscape.textContent = "🌲🌲⛄️🌲⛄️🍂🌲🍁🌲🌲⛄️🍂🌲";
     }
 };
+
+updateTemp();
     
 increaseTempControl.addEventListener('click', () => {
     currentTemp++;
@@ -50,6 +48,10 @@ decreaseTempControl.addEventListener('click', () => {
 cityNameInput.addEventListener('input', () => {
     headerCityName.textContent = cityNameInput.value;
 });
+
+// let defaultCity = "Seattle";
+// cityNameInput.value = defaultCity;
+// headerCityName.textContent = defaultCity;
 
 async function getCoordinates(cityName) {
     let latitude, longitude;
