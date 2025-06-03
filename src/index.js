@@ -6,8 +6,8 @@ const increaseTempControl = document.getElementById('increaseTempControl');
 const decreaseTempControl = document.getElementById('decreaseTempControl');
 const tempValue = document.getElementById('tempValue');
 const landscape = document.getElementById('landscape');
-
-
+const cityNameInput = document.getElementById('cityNameInput');
+const headerCityName = document.getElementById('headerCityName');
 
 const updateTemp = () => {
     tempValue.textContent = `${currentTemp}°F`;
@@ -43,3 +43,7 @@ decreaseTempControl.addEventListener('click', () => {
 });
 
 updateTemp();
+
+cityNameInput.addEventListener('input', () => {
+    headerCityName.textContent = cityNameInput.value;
+});
