@@ -73,8 +73,7 @@ async function getWeatherFromCoordinates(latitude, longitude) {
         {
             params: {
                 lat: latitude,
-                lon: longitude,
-                units: 'imperial'
+                lon: longitude
             }
         })
         .then( (response) => {
