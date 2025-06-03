@@ -1,6 +1,10 @@
 "use strict";
 
 let currentTemp = 0;
+// let defaultCity = "Seattle";
+// cityNameInput.value = defaultCity;
+// headerCityName.textContent = defaultCity;
+
 
 const increaseTempControl = document.getElementById('increaseTempControl');
 const decreaseTempControl = document.getElementById('decreaseTempControl');
@@ -89,7 +93,6 @@ async function getWeatherFromCoordinates(latitude, longitude) {
 
 currentTempButton.addEventListener('click', async () => {
     const coordinates = await getCoordinates(cityNameInput.value);
-    const temperature = await getWeatherFromCoordinates(coordinates.latitude, coordinates.longitude);
-    currentTemp = temperature;
+    currentTemp = await getWeatherFromCoordinates(coordinates.latitude, coordinates.longitude);
     updateTemp();
 });
