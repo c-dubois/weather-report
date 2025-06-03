@@ -8,6 +8,7 @@ const tempValue = document.getElementById('tempValue');
 const landscape = document.getElementById('landscape');
 const cityNameInput = document.getElementById('cityNameInput');
 const headerCityName = document.getElementById('headerCityName');
+const currentTempButton = document.getElementById('currentTempButton');
 
 const updateTemp = () => {
     tempValue.textContent = `${currentTemp}°F`;
@@ -48,25 +49,48 @@ cityNameInput.addEventListener('input', () => {
     headerCityName.textContent = cityNameInput.value;
 });
 
-async function getCoordinates(cityNameInput) {
+async function getCoordinates(cityName) {
     let latitude, longitude;
-    axios.get('http://127.0.0.1:5000/location',
+    return axios.get('http://127.0.0.1:5000/location',
         {
             params: {
-                q: cityNameInput
+                q: cityName
             }
         })
         .then( (response) => {
             latitude = response.data[0].lat;
             longitude = response.data[0].lon;
             console.log('success in getCoordinates!', latitude, longitude);
+            return {latitude, longitude};
         })
         .catch( (error) => {
             console.log('error in getCoordinates!');
             console.log(error);
         });
-    return {
-        cityLat: latitude,
-        cityLon: longitude
-    };
 };
+
+async function getWeatherFromCoordinates(latitude, longitude) {
+    let temperature;
+    return axios.get('http://127.0.0.1:5000/weather',
+        {
+            params: {
+                lat: latitude,
+                lon: longitude,
+                units: 'imperial'
+            }
+        })
+        .then( (response) => {
+            temperature = response.data.main.temp;
+            console.log('success in getWeatherFromCoordinates!', temperature);
+            return temperature;
+        })
+        .catch( (error) => {
+            console.log('error in getWeatherFromCoordinates!');
+            console.log(error);
+        });
+};
+
+currentTempButton.addEventListener('click', () => {
+    const coordinates = getCoordinates(cityNameInput);
+    getWeatherFromCoordinates(coordinates);
+});
