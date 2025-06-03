@@ -43,8 +43,6 @@ decreaseTempControl.addEventListener('click', () => {
     updateTemp();
 });
 
-updateTemp();
-
 cityNameInput.addEventListener('input', () => {
     headerCityName.textContent = cityNameInput.value;
 });
@@ -82,7 +80,7 @@ async function getWeatherFromCoordinates(latitude, longitude) {
         .then( (response) => {
             temperature = response.data.main.temp;
             console.log('success in getWeatherFromCoordinates!', temperature);
-            return temperature;
+            return Math.round((temperature - 273.15) * 9/5 + 32);
         })
         .catch( (error) => {
             console.log('error in getWeatherFromCoordinates!');
@@ -90,7 +88,9 @@ async function getWeatherFromCoordinates(latitude, longitude) {
         });
 };
 
-currentTempButton.addEventListener('click', () => {
-    const coordinates = getCoordinates(cityNameInput);
-    getWeatherFromCoordinates(coordinates);
+currentTempButton.addEventListener('click', async () => {
+    const coordinates = await getCoordinates(cityNameInput.value);
+    const temperature = await getWeatherFromCoordinates(coordinates.latitude, coordinates.longitude);
+    currentTemp = temperature;
+    updateTemp();
 });
