@@ -47,3 +47,26 @@ updateTemp();
 cityNameInput.addEventListener('input', () => {
     headerCityName.textContent = cityNameInput.value;
 });
+
+async function getCoordinates(cityNameInput) {
+    let latitude, longitude;
+    axios.get('http://127.0.0.1:5000/location',
+        {
+            params: {
+                q: cityNameInput
+            }
+        })
+        .then( (response) => {
+            latitude = response.data[0].lat;
+            longitude = response.data[0].lon;
+            console.log('success in getCoordinates!', latitude, longitude);
+        })
+        .catch( (error) => {
+            console.log('error in getCoordinates!');
+            console.log(error);
+        });
+    return {
+        cityLat: latitude,
+        cityLon: longitude
+    };
+};
