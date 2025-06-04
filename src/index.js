@@ -11,6 +11,8 @@ const headerCityName = document.getElementById('headerCityName');
 const currentTempButton = document.getElementById('currentTempButton');
 const skySelect = document.getElementById('skySelect');
 const sky = document.getElementById('sky');
+const cityNameReset = document.getElementById('cityNameReset');
+const defaultCity = 'Seattle';
 
 const updateTemp = () => {
     tempValue.textContent = `${currentTemp}°F`;
@@ -108,4 +110,11 @@ const updateSky = () => {
     }
 };
 
+updateSky();
+
 skySelect.addEventListener('change', updateSky);
+cityNameReset.addEventListener('click', () => {
+    cityNameInput.value = defaultCity
+    headerCityName.textContent = defaultCity
+    
+})
