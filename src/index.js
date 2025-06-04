@@ -64,7 +64,7 @@ function getCoordinates(cityName) {
             console.log(error);
         });
     };
-    
+
 function getWeatherFromCoordinates(latitude, longitude) {
     return axios.get('http://127.0.0.1:5000/weather',
         {
@@ -122,5 +122,4 @@ skySelect.addEventListener('change', updateSky);
 cityNameReset.addEventListener('click', () => {
     cityNameInput.value = defaultCity;
     headerCityName.textContent = defaultCity;
-
-})
+});
