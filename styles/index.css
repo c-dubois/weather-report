@@ -80,15 +80,11 @@ align-self: center;
 display: flex;
 flex-direction: row;
 justify-content: space-around;
-/* justify-content: center; */
 }
 
 #tempValue {
 font-size: 3rem;
 margin-left: 1.5rem;
-color: yellowgreen;
-/* padding-right: 1rem; */
-/* margin-right: 1.5rem; */
 }
 
 .temperature__controls {
