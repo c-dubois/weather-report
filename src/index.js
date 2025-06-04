@@ -32,6 +32,8 @@ const updateTemp = () => {
         landscape.textContent = "🌲🌲⛄️🌲⛄️🍂🌲🍁🌲🌲⛄️🍂🌲";
     }
 };
+
+updateTemp();
     
 increaseTempControl.addEventListener('click', () => {
     currentTemp++;
@@ -46,6 +48,10 @@ decreaseTempControl.addEventListener('click', () => {
 cityNameInput.addEventListener('input', () => {
     headerCityName.textContent = cityNameInput.value;
 });
+
+// let defaultCity = "Seattle";
+// cityNameInput.value = defaultCity;
+// headerCityName.textContent = defaultCity;
 
 function getCoordinates(cityName) {
     return axios.get('http://127.0.0.1:5000/location',
@@ -83,7 +89,6 @@ function getWeatherFromCoordinates(latitude, longitude) {
 
 currentTempButton.addEventListener('click', async () => {
     const coordinates = await getCoordinates(cityNameInput.value);
-    const temperature = await getWeatherFromCoordinates(coordinates.latitude, coordinates.longitude);
-    currentTemp = temperature;
+    currentTemp = await getWeatherFromCoordinates(coordinates.latitude, coordinates.longitude);
     updateTemp();
 });
