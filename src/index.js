@@ -1,6 +1,6 @@
 "use strict";
 
-let currentTemp = 0;
+let currentTemp = 65;
 
 const increaseTempControl = document.getElementById('increaseTempControl');
 const decreaseTempControl = document.getElementById('decreaseTempControl');
@@ -47,8 +47,7 @@ cityNameInput.addEventListener('input', () => {
     headerCityName.textContent = cityNameInput.value;
 });
 
-async function getCoordinates(cityName) {
-    let latitude, longitude;
+function getCoordinates(cityName) {
     return axios.get('http://127.0.0.1:5000/location',
         {
             params: {
@@ -56,34 +55,28 @@ async function getCoordinates(cityName) {
             }
         })
         .then( (response) => {
-            latitude = response.data[0].lat;
-            longitude = response.data[0].lon;
-            console.log('success in getCoordinates!', latitude, longitude);
+            const latitude = response.data[0].lat;
+            const longitude = response.data[0].lon;
             return {latitude, longitude};
         })
         .catch( (error) => {
-            console.log('error in getCoordinates!');
             console.log(error);
         });
 };
 
-async function getWeatherFromCoordinates(latitude, longitude) {
-    let temperature;
+function getWeatherFromCoordinates(latitude, longitude) {
     return axios.get('http://127.0.0.1:5000/weather',
         {
             params: {
                 lat: latitude,
-                lon: longitude,
-                units: 'imperial'
+                lon: longitude
             }
         })
         .then( (response) => {
-            temperature = response.data.main.temp;
-            console.log('success in getWeatherFromCoordinates!', temperature);
+            const temperature = response.data.main.temp;
             return Math.round((temperature - 273.15) * 9/5 + 32);
         })
         .catch( (error) => {
-            console.log('error in getWeatherFromCoordinates!');
             console.log(error);
         });
 };
