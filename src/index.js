@@ -48,13 +48,6 @@ const changeTemperature = (amount) => {
     updateTempDisplay();
 };
 
-increaseTempControl.addEventListener('click', () => changeTemperature(1));
-decreaseTempControl.addEventListener('click', () => changeTemperature(-1));
-
-cityNameInput.addEventListener('input', () => {
-    headerCityName.textContent = cityNameInput.value;
-});
-
 function getCoordinates(cityName) {
     return axios.get('http://127.0.0.1:5000/location',
         {
@@ -70,8 +63,8 @@ function getCoordinates(cityName) {
         .catch( (error) => {
             console.log(error);
         });
-};
-
+    };
+    
 function getWeatherFromCoordinates(latitude, longitude) {
     return axios.get('http://127.0.0.1:5000/weather',
         {
@@ -92,12 +85,7 @@ function getWeatherFromCoordinates(latitude, longitude) {
 const getTemp = async () => {
     const coordinates = await getCoordinates(cityNameInput.value);
     currentTemp = await getWeatherFromCoordinates(coordinates.latitude, coordinates.longitude);
-}
-
-currentTempButton.addEventListener('click', async () => {
-    await getTemp();
-    updateTempDisplay();
-});
+};
 
 const updateSky = () => {
     const selectedSky = skySelect.value;
@@ -112,14 +100,27 @@ const updateSky = () => {
     }
 };
 
+const resetCity = () => {
+    cityNameInput.value = defaultCity;
+    headerCityName.textContent = defaultCity;
+};
+
+increaseTempControl.addEventListener('click', () => changeTemperature(1));
+decreaseTempControl.addEventListener('click', () => changeTemperature(-1));
+
+cityNameInput.addEventListener('input', () => {
+    headerCityName.textContent = cityNameInput.value;
+});
+
+currentTempButton.addEventListener('click', async () => {
+    await getTemp();
+    updateTempDisplay();
+});
+
 skySelect.addEventListener('change', updateSky);
+
 cityNameReset.addEventListener('click', () => {
     cityNameInput.value = defaultCity;
     headerCityName.textContent = defaultCity;
 
 })
-
-const resetCity = () => {
-    cityNameInput.value = defaultCity;
-    headerCityName.textContent = defaultCity;
-}
