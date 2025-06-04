@@ -9,6 +9,8 @@ const landscape = document.getElementById('landscape');
 const cityNameInput = document.getElementById('cityNameInput');
 const headerCityName = document.getElementById('headerCityName');
 const currentTempButton = document.getElementById('currentTempButton');
+const skySelect = document.getElementById('skySelect');
+const sky = document.getElementById('sky');
 
 const updateTemp = () => {
     tempValue.textContent = `${currentTemp}°F`;
@@ -92,3 +94,18 @@ currentTempButton.addEventListener('click', async () => {
     currentTemp = await getWeatherFromCoordinates(coordinates.latitude, coordinates.longitude);
     updateTemp();
 });
+
+const updateSky = () => {
+    const selectedSky = skySelect.value;
+    if (selectedSky == 'sunny') {
+        sky.textContent = '☁️ ☁️ ☁️ ☀️ ☁️ ☁️';
+    } else if (selectedSky == 'cloudy') {
+        sky.textContent = '☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️';
+    } else if (selectedSky == 'rainy') {
+        sky.textContent = '🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧';
+    } else if (selectedSky == 'snowy') {
+        sky.textContent = '🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨';
+    }
+};
+
+skySelect.addEventListener('change', updateSky);
