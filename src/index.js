@@ -1,6 +1,7 @@
 "use strict";
 
-let currentTemp = 65;
+let currentTemp = 0;
+const defaultCity = 'Seattle';
 
 const increaseTempControl = document.getElementById('increaseTempControl');
 const decreaseTempControl = document.getElementById('decreaseTempControl');
@@ -12,11 +13,16 @@ const currentTempButton = document.getElementById('currentTempButton');
 const skySelect = document.getElementById('skySelect');
 const sky = document.getElementById('sky');
 const cityNameReset = document.getElementById('cityNameReset');
-const defaultCity = 'Seattle';
 
-const updateTemp = () => {
+window.addEventListener('DOMContentLoaded', async () => {
+    resetCity();
+    await getTemp();
+    updateTempDisplay();
+    updateSky();
+});
+
+const updateTempDisplay = () => {
     tempValue.textContent = `${currentTemp}°F`;
-
     tempValue.className = '';
 
     if (currentTemp >= 80){
@@ -37,25 +43,17 @@ const updateTemp = () => {
     }
 };
 
-updateTemp();
-    
-increaseTempControl.addEventListener('click', () => {
-    currentTemp++;
-    updateTemp();
-});
+const changeTemperature = (amount) => {
+    currentTemp += amount;
+    updateTempDisplay();
+};
 
-decreaseTempControl.addEventListener('click', () => {
-    currentTemp--;
-    updateTemp();
-});
+increaseTempControl.addEventListener('click', () => changeTemperature(1));
+decreaseTempControl.addEventListener('click', () => changeTemperature(-1));
 
 cityNameInput.addEventListener('input', () => {
     headerCityName.textContent = cityNameInput.value;
 });
-
-// let defaultCity = "Seattle";
-// cityNameInput.value = defaultCity;
-// headerCityName.textContent = defaultCity;
 
 function getCoordinates(cityName) {
     return axios.get('http://127.0.0.1:5000/location',
@@ -91,10 +89,14 @@ function getWeatherFromCoordinates(latitude, longitude) {
         });
 };
 
-currentTempButton.addEventListener('click', async () => {
+const getTemp = async () => {
     const coordinates = await getCoordinates(cityNameInput.value);
     currentTemp = await getWeatherFromCoordinates(coordinates.latitude, coordinates.longitude);
-    updateTemp();
+}
+
+currentTempButton.addEventListener('click', async () => {
+    await getTemp();
+    updateTempDisplay();
 });
 
 const updateSky = () => {
@@ -110,11 +112,14 @@ const updateSky = () => {
     }
 };
 
-updateSky();
-
 skySelect.addEventListener('change', updateSky);
 cityNameReset.addEventListener('click', () => {
-    cityNameInput.value = defaultCity
-    headerCityName.textContent = defaultCity
-    
+    cityNameInput.value = defaultCity;
+    headerCityName.textContent = defaultCity;
+
 })
+
+const resetCity = () => {
+    cityNameInput.value = defaultCity;
+    headerCityName.textContent = defaultCity;
+}

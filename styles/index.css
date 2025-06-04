@@ -167,6 +167,15 @@ background-color: lightsteelblue;
 #increaseTempControl {
     cursor: pointer;
 }
+
 #decreaseTempControl {
+    cursor: pointer;
+}
+
+#currentTempButton {
+    cursor: pointer;
+}
+
+#cityNameReset {
     cursor: pointer;
 }
