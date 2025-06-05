@@ -1,12 +1,12 @@
 h2 {
-    margin: 0 auto 2rem auto;
+margin: 0 auto 1.5rem auto;
 }
 
 body {
 display: grid;
 grid-template-columns: 1fr 2fr;
 grid-template-rows: auto auto auto auto;
-grid-gap: 1rem;
+gap: 1.5rem;
 
 font-family: "Rubik", sans-serif;
 font-size: 18px;
@@ -19,17 +19,17 @@ color: white;
 grid-column: span 3;
 display: flex;
 align-items: center;
-margin: 2rem auto 3rem 0;
+margin: 2rem 0 2rem 0;
 }
 
 .header__header > h1 {
-margin-right: 2rem;
-font-size: 3em;
+margin-right: 1.5rem;
+font-size: 2.8em;
 }
 
 .header__city-name {
-font-style: oblique;
-font-size: 2rem;
+font-style: italic;
+font-size: 1.8rem;
 }
 
 .header__city-name::before,
@@ -40,9 +40,10 @@ content: "✨";
 .temperature__section,
 .sky__section,
 .city-name__section {
-border-radius: 8px;
-padding: 2rem;
+border-radius: 10px;
+padding: 1.5rem;
 background-color: white;
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .temperature__section {
@@ -50,15 +51,17 @@ grid-row: 2;
 }
 
 .temperature__section button {
-    background-color: #1b69f9;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 10px
+background-color: #1b69f9;
+border: none;
+color: white;
+padding: 12px 24px;
+font-size: 16px;
+border-radius: 8px;
+transition: background-color 0.2s ease;
+}
+
+.temperature__section button:hover {
+background-color: #134fb5;
 }
 
 .sky__section {
@@ -76,15 +79,31 @@ text-align: center;
 align-self: center;
 }
 
+.garden__section > h2 {
+color: white;
+}
+
+.garden__content {
+min-height: 200px;
+padding: 2rem;
+border-radius: 10px;
+font-size: 2em;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+background-color: rgba(255, 255, 255, 0.1);
+}
+
 .temperature__content {
 display: flex;
 flex-direction: row;
 justify-content: space-around;
+align-items: center;
 }
 
 #tempValue {
 font-size: 3rem;
-margin-left: 1.5rem;
+margin-left: 1rem;
 visibility: hidden;
 }
 
@@ -92,55 +111,39 @@ visibility: hidden;
 display: flex;
 flex-direction: column;
 align-items: center;
-}
-
-.garden__section > h2 {
-color: white;
-}
-
-.garden__content {
-min-height: 200px;
-max-width: fit-content;
-margin: auto;
-padding: 2rem;
-
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-
-border-radius: 8px;
-font-size: 2em;
+gap: 0.5rem;
 }
 
 .city-name__reset-btn {
-border: 0;
 background-color: #1655cc;
 color: white;
+border: none;
 border-radius: 8px;
-padding: 1rem;
+padding: 0.8rem 1.2rem;
 font-family: "Rubik", sans-serif;
+font-size: 16px;
+transition: background-color 0.2s ease;
+}
+
+.city-name__reset-btn:hover {
+background-color: #0f419e;
 }
 
 .red {
 color: red;
 }
-
 .orange {
 color: orange;
 }
-
 .yellow {
 color: gold;
 }
-
 .yellow-green {
 color: yellowgreen;
 }
-
 .green {
 color: green;
 }
-
 .teal {
 color: teal;
 }
@@ -148,40 +151,57 @@ color: teal;
 .cloudy {
 background-color: lightgrey;
 }
-
 .sunny {
 background-color: rgb(221, 255, 255);
 }
-
 .rainy {
 background-color: lightblue;
 }
-
 .snowy {
 background-color: lightsteelblue;
 }
 
-#increaseTempControl {
-    cursor: pointer;
-}
-
-#decreaseTempControl {
-    cursor: pointer;
-}
-
-#currentTempButton {
-    cursor: pointer;
-}
-
-#cityNameReset {
-    cursor: pointer;
+#increaseTempControl,
+#decreaseTempControl,
+#currentTempButton,
+#cityNameReset,
+#toggleTempUnit {
+cursor: pointer;
 }
 
 .temperature__buttons {
-    display: flex;
-    gap: 10px;
+display: flex;
+gap: 1rem;
 }
 
+#cityNameInput {
+font-size: 1.2rem;
+padding: 0.6rem 1rem;
+border-radius: 8px;
+border: 1px solid #ccc;
+width: 100%;
+max-width: 300px;
+box-sizing: border-box;
+}
+
+#skySelect {
+font-size: 1.2rem;
+padding: 0.6rem 1rem;
+border-radius: 8px;
+border: 1px solid #ccc;
+width: 100%;
+max-width: 300px;
+box-sizing: border-box;
+}
+
+#cityNameReset,
 #toggleTempUnit {
-    cursor: pointer;
+width: 100%;
+max-width: 200px;
+padding: 0.6rem 1rem;
+font-size: 16px;
+box-sizing: border-box;
+border-radius: 8px;
+border: none;
+font-family: "Rubik", sans-serif;
 }
