@@ -2,6 +2,7 @@
 
 let currentTemp = 0;
 const defaultCity = 'Seattle';
+let isFahrenheit = true; 
 
 const increaseTempControl = document.getElementById('increaseTempControl');
 const decreaseTempControl = document.getElementById('decreaseTempControl');
@@ -13,6 +14,7 @@ const currentTempButton = document.getElementById('currentTempButton');
 const skySelect = document.getElementById('skySelect');
 const sky = document.getElementById('sky');
 const cityNameReset = document.getElementById('cityNameReset');
+const toggleTempUnit = document.getElementById('toggleTempUnit');
 
 window.addEventListener('DOMContentLoaded', async () => {
     resetCity();
@@ -23,7 +25,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 const updateTempDisplay = () => {
     tempValue.style.visibility = 'visible';
-    tempValue.textContent = `${currentTemp}°F`;
+    tempValue.textContent = `${currentTemp}°${isFahrenheit ? 'F' : 'C'}`;
     tempValue.className = '';
 
     if (currentTemp >= 80){
@@ -85,7 +87,13 @@ function getWeatherFromCoordinates(latitude, longitude) {
 
 const getTemp = async () => {
     const coordinates = await getCoordinates(cityNameInput.value);
-    currentTemp = await getWeatherFromCoordinates(coordinates.latitude, coordinates.longitude);
+    let tempF = await getWeatherFromCoordinates(coordinates.latitude, coordinates.longitude);
+
+    if (isFahrenheit) {
+        currentTemp = tempF;
+    } else {
+        currentTemp = Math.round((tempF - 32) * 5 / 9);
+    }
 };
 
 const updateSky = () => {
@@ -123,4 +131,17 @@ skySelect.addEventListener('change', updateSky);
 cityNameReset.addEventListener('click', () => {
     cityNameInput.value = defaultCity;
     headerCityName.textContent = defaultCity;
+});
+
+toggleTempUnit.addEventListener('click', () => {
+    if (isFahrenheit) {
+        currentTemp = Math.round((currentTemp - 32) * 5 / 9);
+        toggleTempUnit.textContent = 'Switch to °F';
+        isFahrenheit = false;
+    } else {
+        currentTemp = Math.round((currentTemp * 9 / 5) + 32);
+        toggleTempUnit.textContent = 'Switch to °C';
+        isFahrenheit = true;
+    }
+    updateTempDisplay();
 });

@@ -176,3 +176,12 @@ background-color: lightsteelblue;
 #cityNameReset {
     cursor: pointer;
 }
+
+.temperature__buttons {
+    display: flex;
+    gap: 10px;
+}
+
+#toggleTempUnit {
+    cursor: pointer;
+}
