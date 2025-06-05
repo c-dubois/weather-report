@@ -16,30 +16,31 @@ const cityNameReset = document.getElementById('cityNameReset');
 
 window.addEventListener('DOMContentLoaded', async () => {
     resetCity();
+    updateSky();
     await getTemp();
     updateTempDisplay();
-    updateSky();
 });
 
 const updateTempDisplay = () => {
+    tempValue.style.visibility = 'visible';
     tempValue.textContent = `${currentTemp}°F`;
     tempValue.className = '';
 
     if (currentTemp >= 80){
         tempValue.classList.add('red');
-        landscape.textContent = "🌵__🐍_🦂_🌵🌵__🐍_🏜_🦂";
+        landscape.textContent = "🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵";
     } else if (currentTemp >= 70){
         tempValue.classList.add('orange');
-        landscape.textContent = "🌸🌿🌼__🌷🌻🌿_☘️🌱_🌻🌷";
+        landscape.textContent = "🌸🌿🌼🌸🌿🌼🌸🌿🌼🌸🌿";
     } else if (currentTemp >= 60){
         tempValue.classList.add('yellow');
-        landscape.textContent = "🌾🌾_🍃_🪨__🛤_🌾🌾🌾_🍃";
+        landscape.textContent = "🌾🌾🌾🌾🌾🌾🌾🌾🌾🌾🌾";
     } else if (currentTemp >= 50){
         tempValue.classList.add('green');
-        landscape.textContent = "🌲🌲⛄️🌲⛄️🍂🌲🍁🌲🌲⛄️🍂🌲";
+        landscape.textContent = "⛄️🌲🌲🌲🌲🍁🌲🌲🌲🌲⛄️";
     } else {
         tempValue.classList.add('teal');
-        landscape.textContent = "🌲🌲⛄️🌲⛄️🍂🌲🍁🌲🌲⛄️🍂🌲";
+        landscape.textContent = "⛄️🌲🌲🌲🌲🍁🌲🌲🌲🌲⛄️";
     }
 };
 
@@ -90,13 +91,13 @@ const getTemp = async () => {
 const updateSky = () => {
     const selectedSky = skySelect.value;
     if (selectedSky == 'sunny') {
-        sky.textContent = '☁️ ☁️ ☁️ ☀️ ☁️ ☁️';
+        sky.textContent = '☀️☀️☀️☀️☀️☀️☀️☀️☀️☀️☀️';
     } else if (selectedSky == 'cloudy') {
-        sky.textContent = '☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️';
+        sky.textContent = '☁️☁️🌤☁️☁️🌤☁️☁️🌤☁️☁️';
     } else if (selectedSky == 'rainy') {
-        sky.textContent = '🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧';
+        sky.textContent = '🌧🌧🌧🌧🌧🌧🌧🌧🌧🌧🌧';
     } else if (selectedSky == 'snowy') {
-        sky.textContent = '🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨';
+        sky.textContent = '❄️❄️❄️❄️❄️❄️❄️❄️❄️❄️❄️';
     }
 };
 
