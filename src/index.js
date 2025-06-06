@@ -21,16 +21,18 @@ const updateTempDisplay = () => {
     tempValue.textContent = `${currentTemp}°${isFahrenheit ? 'F' : 'C'}`;
     tempValue.className = '';
 
-    if (currentTemp >= 80){
+    const tempInF = isFahrenheit ? currentTemp : Math.round((currentTemp * 9 / 5) + 32);
+
+    if (tempInF >= 80){
         tempValue.classList.add('red');
         landscape.textContent = "🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵";
-    } else if (currentTemp >= 70){
+    } else if (tempInF >= 70){
         tempValue.classList.add('orange');
         landscape.textContent = "🌸🌿🌼🌸🌿🌼🌸🌿🌼🌸🌿";
-    } else if (currentTemp >= 60){
+    } else if (tempInF >= 60){
         tempValue.classList.add('yellow');
         landscape.textContent = "🌾🌾🌾🌾🌾🌾🌾🌾🌾🌾🌾";
-    } else if (currentTemp >= 50){
+    } else if (tempInF >= 50){
         tempValue.classList.add('green');
         landscape.textContent = "⛄️🌲🌲🌲🌲🍁🌲🌲🌲🌲⛄️";
     } else {
