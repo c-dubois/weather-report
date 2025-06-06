@@ -16,13 +16,6 @@ const sky = document.getElementById('sky');
 const cityNameReset = document.getElementById('cityNameReset');
 const toggleTempUnit = document.getElementById('toggleTempUnit');
 
-window.addEventListener('DOMContentLoaded', async () => {
-    resetCity();
-    updateSky();
-    await getTemp();
-    updateTempDisplay();
-});
-
 const updateTempDisplay = () => {
     tempValue.style.visibility = 'visible';
     tempValue.textContent = `${currentTemp}°${isFahrenheit ? 'F' : 'C'}`;
@@ -49,6 +42,24 @@ const updateTempDisplay = () => {
 const changeTemperature = (amount) => {
     currentTemp += amount;
     updateTempDisplay();
+};
+
+const updateSky = () => {
+    const selectedSky = skySelect.value;
+    if (selectedSky == 'sunny') {
+        sky.textContent = '☀️☀️☀️☀️☀️☀️☀️☀️☀️☀️☀️';
+    } else if (selectedSky == 'cloudy') {
+        sky.textContent = '☁️☁️🌤☁️☁️🌤☁️☁️🌤☁️☁️';
+    } else if (selectedSky == 'rainy') {
+        sky.textContent = '🌧🌧🌧🌧🌧🌧🌧🌧🌧🌧🌧';
+    } else if (selectedSky == 'snowy') {
+        sky.textContent = '❄️❄️❄️❄️❄️❄️❄️❄️❄️❄️❄️';
+    }
+};
+
+const resetCity = () => {
+    cityNameInput.value = defaultCity;
+    headerCityName.textContent = defaultCity;
 };
 
 function getCoordinates(cityName) {
@@ -96,24 +107,6 @@ const getTemp = async () => {
     }
 };
 
-const updateSky = () => {
-    const selectedSky = skySelect.value;
-    if (selectedSky == 'sunny') {
-        sky.textContent = '☀️☀️☀️☀️☀️☀️☀️☀️☀️☀️☀️';
-    } else if (selectedSky == 'cloudy') {
-        sky.textContent = '☁️☁️🌤☁️☁️🌤☁️☁️🌤☁️☁️';
-    } else if (selectedSky == 'rainy') {
-        sky.textContent = '🌧🌧🌧🌧🌧🌧🌧🌧🌧🌧🌧';
-    } else if (selectedSky == 'snowy') {
-        sky.textContent = '❄️❄️❄️❄️❄️❄️❄️❄️❄️❄️❄️';
-    }
-};
-
-const resetCity = () => {
-    cityNameInput.value = defaultCity;
-    headerCityName.textContent = defaultCity;
-};
-
 increaseTempControl.addEventListener('click', () => changeTemperature(1));
 decreaseTempControl.addEventListener('click', () => changeTemperature(-1));
 
@@ -128,10 +121,7 @@ currentTempButton.addEventListener('click', async () => {
 
 skySelect.addEventListener('change', updateSky);
 
-cityNameReset.addEventListener('click', () => {
-    cityNameInput.value = defaultCity;
-    headerCityName.textContent = defaultCity;
-});
+cityNameReset.addEventListener('click', resetCity);
 
 toggleTempUnit.addEventListener('click', () => {
     if (isFahrenheit) {
@@ -143,5 +133,12 @@ toggleTempUnit.addEventListener('click', () => {
         toggleTempUnit.textContent = 'Switch to °C';
         isFahrenheit = true;
     }
+    updateTempDisplay();
+});
+
+window.addEventListener('DOMContentLoaded', async () => {
+    resetCity();
+    updateSky();
+    await getTemp();
     updateTempDisplay();
 });
